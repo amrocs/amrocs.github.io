@@ -46,30 +46,62 @@
         <hr/>
         <p id="please_wait" style="display:none;">Please wait...</p>
         
-        <div id="info">
-            <span id="train_count"></span>
-            <p id="test_count"></p>
-        </div>
-        
-        <div id="mnist_container" class="group_container">
-            <p>Image</p>
-            <canvas id="mnist_image" width="56", height="56"></canvas>
-        </div>
-        
-        <div id="mnist_container" class="group_container">
-            <p>label</p>
-            <div id="mnist_label"></div>
-        </div>
-        
-        <div id="mnist_container" class="group_container">
-            <div>
-                learn loop: <span id="learn_time">0/60000</span>
+        <div>
+            <div id="info">
+                <span id="train_count"></span>
+                <p id="test_count"></p>
             </div>
-            <div>
-                test loop: <span id="test_time">0/10000</span>
+            
+            <div id="mnist_container" class="group_container">
+                <p>Image</p>
+                <canvas id="mnist_image" width="56", height="56"></canvas>
+            </div>
+            
+            <div id="mnist_container" class="group_container">
+                <p>label</p>
+                <div id="mnist_label"></div>
+            </div>
+            
+            <div id="mnist_container" class="group_container">
+                <div>
+                    learn loop: <span id="learn_time">0/60000</span>
+                </div>
+                <div>
+                    test loop: <span id="test_time">0/10000</span>
+                </div>
             </div>
         </div>
+        <div style="clear:both;"></div>
+        <hr/>
         
+        <h2>How to use</h2>
+        <div>
+<pre>
+//create mnist object
+var mnist = jMnist({
+    trainCount: trainCount,             //integer (60000 is max and also default value)
+    testCount: testCount,               //integer (10000 is max and also default value)
+    trainImageFile: trainImageFile,     //file object
+    trainLabelFile: trainLabelFile,     //file object
+    testImageFile: testImageFile,       //file object
+    testLabelFile: testLabelFile,       //file object
+});
+
+//start train and test
+mnist.start(
+    onTrainImageRead,                   //function(index, imageData, label)
+    onTestImageRead                     //function(index, imageData, label)
+);
+</pre>
+            <p>
+                "onTrainImageRead" and "onTestImageRead" is callback function. And these function have 3 parameters. 
+            </p>
+            <ul>
+                <li>"index" is loop index.</li>
+                <li>"imageData" is 28*28 array and each have 0 to 255 value.</li>
+                <li>"label" is teacher value.</li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
