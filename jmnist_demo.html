@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>jMNIST</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./jmnist_demo.css">
+    <!--jQuery-->
+    <script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
+    <!-- Mersenne Twister-->
+    <script type="text/javascript" src="./lib/mt.js"></script>
+    <!--My Module-->
+    <script type="text/javascript" src="./jmnist/jmnist.js"></script>
+    <script type="text/javascript" src="./jmnist_demo.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>jMNIST</h1>
+        <p>
+            javascript MNIST library.
+        </p>
+        
+        <h2>Demo</h2>
+        <p>
+            1.Download MNIST files form <a href="http://yann.lecun.com/exdb/mnist/">here</a>.
+        </p>
+        <div id="drop_area" class="">
+            2.Drop all downloaded files here.
+            <ul>
+                <li>train-labels.idx1-ubyte</li>
+                <li>train-images.idx3-ubyte</li>
+                <li>t10k-labels.idx1-ubyte</li>
+                <li>t10k-images.idx3-ubyte</li>
+            </ul>
+        </div>
+        
+        <div id="buttons">
+            <button id="btn_go" disabled="disabled">GO</button>
+        </div>
+        
+        <div style="clear:both;"></div>
+        <hr/>
+        <p id="please_wait" style="display:none;">Please wait...</p>
+        
+        <div id="info">
+            <span id="train_count"></span>
+            <p id="test_count"></p>
+        </div>
+        
+        <div id="mnist_container" class="group_container">
+            <p>Image</p>
+            <canvas id="mnist_image" width="56", height="56"></canvas>
+        </div>
+        
+        <div id="mnist_container" class="group_container">
+            <p>label</p>
+            <div id="mnist_label"></div>
+        </div>
+        
+        <div id="mnist_container" class="group_container">
+            <div>
+                learn loop: <span id="learn_time">0/60000</span>
+            </div>
+            <div>
+                test loop: <span id="test_time">0/10000</span>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
