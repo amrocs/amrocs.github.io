@@ -34,7 +34,7 @@ var drawImage = function(imageData){
 var onTrainImageRead = function(index, image, label){
     $("#please_wait").hide();
     
-    drawImage(image);
+    //drawImage(image);
     $("#mnist_label").html(label);
     $("#learn_time").html((index+1) + "/60000");
 };
@@ -44,7 +44,7 @@ var onTrainImageRead = function(index, image, label){
 // This funciton called 10000 times.
 //--------------------------------------------------------
 var onTestImageRead = function(index, image, label){
-    drawImage(image);
+    //drawImage(image);
     $("#mnist_label").html(label);
     $("#test_time").html((index+1) + "/10000");
 };
