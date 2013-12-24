@@ -31,7 +31,7 @@ var drawImage = function(imageData){
 // Callback process on training image read.
 // This funciton called 60000 times.
 //--------------------------------------------------------
-var onTrainImageRead = function(index, image, label){
+var onTrainImageRead = function(index, label, image){
     $("#please_wait").hide();
     
     drawImage(image);
@@ -43,7 +43,7 @@ var onTrainImageRead = function(index, image, label){
 // Callback process on test image read
 // This funciton called 10000 times.
 //--------------------------------------------------------
-var onTestImageRead = function(index, image, label){
+var onTestImageRead = function(index, label, image){
     drawImage(image);
     $("#mnist_label").html(label);
     $("#test_time").html((index+1) + "/10000");

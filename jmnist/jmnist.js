@@ -88,15 +88,15 @@ var jMnist = function(argOptions){
                         }
                     }
                     setTimeout(
-                        function(index, image, label, dfd, end){
-                            onImageRead(index, image, label);
+                        function(index, label, image, dfd, end){
+                            onImageRead(index, label, image);
                             if(index == end){
                                 dfd.resolve();
                                 return;
                             }
                         },
                         0,
-                        i, imageData, labelArray[i], dfd, count-1
+                        i, labelArray[i], imageData, dfd, count-1
                     );
                 }
                 console.log("read images end");

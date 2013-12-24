@@ -89,8 +89,8 @@ var mnist = jMnist({
 
 //start train and test
 mnist.start(
-    onTrainImageRead,                   //function(index, imageData, label)
-    onTestImageRead                     //function(index, imageData, label)
+    onTrainImageRead,                   //function(index, label, imageData)
+    onTestImageRead                     //function(index, label, imageData)
 );
 </pre>
             <p>
@@ -98,8 +98,8 @@ mnist.start(
             </p>
             <ul>
                 <li>"index" is loop index.</li>
-                <li>"imageData" is 28*28 array and each have 0 to 255 value.</li>
                 <li>"label" is teacher value.</li>
+                <li>"imageData" is 28*28 array, and each cell has 0 to 255 value.</li>
             </ul>
         </div>
     </div>
