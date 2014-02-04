@@ -1,0 +1,54 @@
+/**/
+canvas{
+    border: 1px dotted #448;
+    float: left;
+    clear: both;
+}
+#buttons{
+    margin: 10px;
+    float: left;
+}
+input[type="text"]{
+    margin: 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+/**/
+#mnist_container{
+    float: left;
+    border-collapse: collapse;
+}
+#mnist_container th, #mnist_container td{
+    border: 1px solid #000;
+}
+#mnist_image{
+    float: left;
+}
+#mnist_label{
+    width: 56px;
+    height: 56px;
+    float: left;
+    text-align: center;
+    font-size: 44px;
+}
+
+/*Group*/
+.group_container{
+    margin: 2px;
+    padding: 8px;
+    float: left;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 5px 0px inset;
+}
+
+#mnist_label{
+    border: 1px dotted #448;
+}
+
+/*------------------------------------------------*/
+#drop_area{
+    padding: 10px;
+    background: #def;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 6px 0px inset;
+}
