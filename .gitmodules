@@ -1,3 +1,0 @@
-[submodule "mnist.js"]
-	path = mnist.js
-	url = git@github.com:amrocs/mnist.js.git
