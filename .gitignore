@@ -4,5 +4,5 @@
 *.DS_Store
 *.swp
 *.out
-mnist.js/.git/
+mnist.js/
 neuron.js/.git/
