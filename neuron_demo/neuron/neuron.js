@@ -84,7 +84,7 @@ var penaltyDiff = function(desired, x){
 
 
 //--------------------------------------------------------
-//与えられた多次元配列の各次元の長さを求める
+// get each dimention range of multidimensional array 多次元配列の各次元の長さを求める
 var getArraySize = function(argArray){
     var dimension = [];
     
@@ -103,7 +103,7 @@ var getArraySize = function(argArray){
 };
 
 //--------------------------------------------------------
-//与えられた多次元配列の値の合計を求める
+// get total value of multidimensional array 多次元配列の値の合計を求める
 var getArraySum = function(argArray){
     //recursive
     var rec = function(array){
