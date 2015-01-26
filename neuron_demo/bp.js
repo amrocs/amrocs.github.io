@@ -1,5 +1,5 @@
 //************************************************
-//  MNIST Neural Network
+//  neuron.js Demo
 //************************************************
 "use strict";
 (function(){
@@ -23,10 +23,36 @@ var resetBenchmark = function(){
 var my = {
     trainCount: 500,
     testCount: 500,
+    files: [],
+    //For Back-Propagation Leaning
     inputG: null,
     hiddenGroups1: [],
     outputG: null,
-    files: [],
+};
+
+//--------------------------------------------------------
+// draw number image
+//--------------------------------------------------------
+my.latestImageData = null;
+my.$elCanvas = $("#mnist_image");
+my.$elPreCanvas = $(document.createElement('canvas')); //hidden. pre-render to copy
+my.$elPreCanvas.attr({width: my.$elCanvas.attr("width"), height: my.$elCanvas.attr("height")});
+
+function render(){
+    if(my.latestImageData !== null){
+        var ctxPre = my.$elPreCanvas.get(0).getContext('2d');
+        
+        for(var y = 0; y < 28; y++){
+            for(var x = 0; x < 28; x++){
+                var val = my.latestImageData[y][x];
+                ctxPre.fillStyle = 'rgb(' + '0' + ', ' + val + ', ' + val + ')';
+                ctxPre.fillRect(x*2, y*2, 2, 2); //x, y, w, h
+            }
+        }
+        
+        $("#mnist_image").get(0).getContext('2d').drawImage(my.$elPreCanvas.get(0), 0, 0);
+    }
+    requestAnimationFrame(render);
 };
 
 //--------------------------------------------------------
@@ -58,9 +84,16 @@ var getTeacherData = function(label){
 };
 
 //--------------------------------------------------------
-//学習画像データ読み込み時処理
+// on read Training Image
 //--------------------------------------------------------
-var onTrainImageRead = function(index, image, label){
+var onTrainImageRead = function(index, label, image){
+    $("#please_wait").hide();
+    
+    my.latestImageData = image;
+    $("#mnist_label").html(label);
+    $("#learn_time").html((index+1) + "/60000");
+    
+    //
     var inputData = getImageData(image);
     var teacherData = getTeacherData(label);
     
@@ -85,12 +118,16 @@ var onTrainImageRead = function(index, image, label){
 };
 
 //--------------------------------------------------------
-//テスト画像データ読み込み時処理
+// on read Test Image
 //--------------------------------------------------------
 var testCount = 0;
 var correct = 0;
 var incorrect = 0;
-var onTestImageRead = function(index, image, label){
+var onTestImageRead = function(index, label, image){
+    my.latestImageData = image;
+    $("#mnist_label").html(label);
+    $("#test_time").html((index+1) + "/10000");
+    
     var inputData = getImageData(image);
     var teacherData = getTeacherData(label);
     
@@ -124,22 +161,31 @@ var onTestImageRead = function(index, image, label){
 };
 
 //--------------------------------------------------------
-//ロード時処理
+//On Page Load
 $(window).load(function(){
     //------------------------------------------------
-    // ドロップ時処理
+    // on Mnist files dropped 
     var onDropFile = function(e){
         e.preventDefault();
         
         var l = e.dataTransfer.files.length;
         for(var i = 0; i < l; i++){
             my.files.push( e.dataTransfer.files[i] );
+            
+            $("#" + e.dataTransfer.files[i].name.split(".")[0] + "_ok").show();
         }
-        $("#btn_go").removeAttr('disabled');
+        
+        if($("#train-labels_ok").is(':visible')
+            && $("#train-images_ok").is(':visible')
+            && $("#t10k-labels_ok").is(':visible')
+            && $("#t10k-images_ok").is(':visible')
+        ){
+            $("#btn_go").removeAttr('disabled');
+        }
     };
     
     //------------------------------------------------
-    // デフォルト処理をキャンセル
+    // 
     var onCancel = function(e){
         if(e.preventDefault) {
             e.preventDefault();
@@ -150,19 +196,52 @@ $(window).load(function(){
     $(".container").get(0).addEventListener("dragover", onCancel, false);
     $(".container").get(0).addEventListener("dragenter", onCancel, false);
     
-    //
-    my.nn = jneuron();
+    //--------------------------------
+    //Create Neuron.js Objact
+    my.nn = Neuron();
     
-    //Create Neuron Groups
+    //--------------------------------
+    //Create Neuron Layers (Groups)
     //input layer
-    var sizeInputG = [28, 28];
     my.inputG = my.nn.createGroup({
         id: "input",
-        counts: sizeInputG,
+        counts: [28, 28],
         fireFunction: softSign2,
         connectionW: 1,
         connectionH: 1,
     });
+    
+    //hidden layer
+    my.hidden1G = my.nn.createGroup({
+        id: "hidden",
+        counts: [5, 5],
+        initWeightFuntion: getTriangularRandomFunction(-0.1, 0.1),
+        fireFunction: logistic,
+        fireProcess: fireBp,
+        learnProcess: learnBp,
+        connectionW: 28,
+        connectionH: 28,
+    });
+    
+    //output layer
+    my.outputG = my.nn.createGroup({
+        id: "output",
+        counts: [1, 10],
+        initWeightFuntion: getTriangularRandomFunction(-0.6, 0.6),
+        fireFunction: logistic,
+        fireProcess: fireBp,
+        learnProcess: learnBp,
+        connectionW: 5,
+        connectionH: 5,
+    });
+    
+    //--------------------------------
+    //connect layer 
+    my.inputG.connectTo( my.hidden1G );
+    my.hidden1G.connectTo( my.outputG );
+    
+    //--------------------------------
+    // Create Neural-Network Viewer for visual Understanding
     my.inputGViewer = createGroupViewer({
         group: my.inputG,
         parentId: "input_layer_container",
@@ -171,18 +250,6 @@ $(window).load(function(){
         pixelRate: 2,
     });
     
-    //hidden layer 1
-    var sizeHidden1G = [5, 5];
-    my.hidden1G = my.nn.createGroup({
-        id: "hidden1",
-        counts: sizeHidden1G,
-        initWeightFuntion: getTriangularRandomFunction(-0.1, 0.1),
-        fireFunction: logistic,
-        fireProcess: fireBp,
-        learnProcess: learnBp,
-        connectionW: 28,
-        connectionH: 28,
-    });
     my.hidden1GViewer = createGroupViewer({
         group: my.hidden1G,
         parentId: "hidden1_layer_container",
@@ -191,18 +258,6 @@ $(window).load(function(){
         pixelRate: 1,
     });
     
-    //output layer
-    var sizeOutput = [1, 10];
-    my.outputG = my.nn.createGroup({
-        id: "output",
-        counts: sizeOutput,
-        initWeightFuntion: getTriangularRandomFunction(-0.6, 0.6),
-        fireFunction: logistic,
-        fireProcess: fireBp,
-        learnProcess: learnBp,
-        connectionW: 5,
-        connectionH: 5,
-    });
     my.outputGViewer = createGroupViewer({
         group: my.outputG,
         parentId: "output_layer_container",
@@ -212,7 +267,7 @@ $(window).load(function(){
     });
     
     //--------------------------------------------------------
-    //実行ボタン
+    //Start Learning and Test
     $("#btn_go").on('click', function(e){
         //check mnist files
         var trainImageFile;
@@ -237,13 +292,10 @@ $(window).load(function(){
             return;
         }
         
-        //network connecting
-        my.inputG.connectTo( my.hidden1G );
-        my.hidden1G.connectTo( my.outputG );
         resetBenchmark();
         
         //create mnist object
-        my.mnist = jMnist({
+        my.mnist = Mnist({
             trainCount: my.trainCount,
             testCount: my.testCount,
             trainImageFile: trainImageFile,
@@ -254,6 +306,8 @@ $(window).load(function(){
         
         //start train and test
         my.mnist.start( onTrainImageRead, onTestImageRead );
+        
+        render();
     });
 });
 //--------------------------------------------------------

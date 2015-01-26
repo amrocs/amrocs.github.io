@@ -15,7 +15,7 @@ var mergeObj = function(obj1,obj2){
 };
 
 //--------------------------------------------------------
-var jneuron = function(){
+var Neuron = function(){
     var my = {
         neuronHash: {},  //all neuron hash (key: neuron id)
         groupHash: {},  //all neuron-group hash (key: group id)
