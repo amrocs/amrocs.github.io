@@ -13,7 +13,7 @@
     <link href="./basic.css" rel="stylesheet">
     <script type="text/javascript" src="./mnist/mnist.js"></script>
     <script type="text/javascript" src="./neuron/neuron.js"></script>
-    <script type="text/javascript" src="./neuron/neuron-methods.js"></script>
+    <script type="text/javascript" src="./neuron/neuron-backpropagation.js"></script>
     <script type="text/javascript" src="./neuron/neuron-viewer.js"></script>
     <script type="text/javascript" src="./bp.js"></script>
 </head>
@@ -88,6 +88,22 @@
         
         <h2>How to use</h2>
         <div>
+            <h3>neuron</h3>
+            <p>
+                A neuron. 
+            </p>
+            
+            <h3>group</h3>
+            <p>
+                Neurons grouped for some purpose.
+                Each layers in Back Propagation are "group", and Self Organizing Map(SOM)'s neurons are
+                also "group".
+            </p>
+            
+            <h3>group.applyFunc( function )</h3>
+            <p>
+                Apply function to each neuron in group. For example, fire-function.
+            </p>
         </div>
     </div>
     

@@ -27,6 +27,7 @@ var createGroupViewer = function(argOptions){
         viewer.el["weightView"] = $("<div/>")
             .addClass("weight_viewer")
             .css("float", "left")
+            .css("margin", 5)
             .appendTo(viewer.el["view_container"]);
         
         //label
@@ -135,6 +136,7 @@ var createGroupViewer = function(argOptions){
         viewer.el["fireView"] = $("<div/>")
             .addClass("fire_viewer")
             .css("float", "left")
+            .css("margin", 5)
             .appendTo(viewer.el["view_container"]);
         
         //Label

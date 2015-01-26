@@ -204,18 +204,17 @@ $(window).load(function(){
     //Create Neuron Layers (Groups)
     //input layer
     my.inputG = my.nn.createGroup({
-        id: "input",
+        id: "input layer",
         counts: [28, 28],
-        fireFunction: softSign2,
         connectionW: 1,
         connectionH: 1,
     });
     
     //hidden layer
     my.hidden1G = my.nn.createGroup({
-        id: "hidden",
+        id: "hidden layer",
         counts: [5, 5],
-        initWeightFuntion: getTriangularRandomFunction(-0.1, 0.1),
+        initWeightFuntion: getRandFuncTriangular(-0.1, 0.1),
         fireFunction: logistic,
         fireProcess: fireBp,
         learnProcess: learnBp,
@@ -225,9 +224,9 @@ $(window).load(function(){
     
     //output layer
     my.outputG = my.nn.createGroup({
-        id: "output",
+        id: "output layer",
         counts: [1, 10],
-        initWeightFuntion: getTriangularRandomFunction(-0.6, 0.6),
+        initWeightFuntion: getRandFuncTriangular(-0.6, 0.6),
         fireFunction: logistic,
         fireProcess: fireBp,
         learnProcess: learnBp,
