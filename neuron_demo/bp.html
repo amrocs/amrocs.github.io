@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>neuron.js demo</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./mnist_demo.css">
+    <!--jQuery-->
+    <script type="text/javascript" src="./lib/jquery-2.1.3.min.js"></script>
+    <!-- Mersenne Twister-->
+    <script type="text/javascript" src="./lib/mt.js"></script>
+    <!--My Module-->
+    <script type="text/javascript" src="./mnist_demo/mnist.js"></script>
+    <script type="text/javascript" src="./mnist_demo.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1><a href="https://github.com/amrocs/jMnist.js">neuron.js</a></h1>
+        <p>
+            javascript Neural-Network library.
+        </p>
+        
+        <h2>Demo</h2>
+        <p>
+            1.Download MNIST data files form <a href="http://yann.lecun.com/exdb/mnist/">THE MNIST DATABASE</a>.
+        </p>
+        <div id="drop_area" class="">
+            2.Drop all files here.
+            <ul>
+                <li>train-labels.idx1-ubyte<span id="train-labels_ok" class="text-success"><strong>OK</strong><span></li>
+                <li>train-images.idx3-ubyte<span id="train-images_ok" class="text-success"><strong>OK</strong><span></li>
+                <li>t10k-labels.idx1-ubyte<span id="t10k-labels_ok" class="text-success"><strong>OK</strong><span></li>
+                <li>t10k-images.idx3-ubyte<span id="t10k-images_ok" class="text-success"><strong>OK</strong><span></li>
+            </ul>
+        </div>
+        
+        <div id="buttons">
+            <button id="btn_go" disabled="disabled" class="btn btn-primary">GO</button>
+        </div>
+        
+        <div style="clear:both;"></div>
+        
+        <p id="please_wait" style="display:none;">Please wait...</p>
+        
+        <div>
+            <div id="info">
+                <span id="train_count"></span>
+                <p id="test_count"></p>
+            </div>
+            
+            <div id="mnist_container" class="group_container">
+                <p>Image</p>
+                <canvas id="mnist_image" width="56", height="56"></canvas>
+            </div>
+            
+            <div id="mnist_container" class="group_container">
+                <p>Label</p>
+                <div id="mnist_label"></div>
+            </div>
+            
+            <div id="mnist_container" class="group_container">
+                <div>
+                    learn loop: <span id="learn_time">0/60000</span>
+                </div>
+                <div>
+                    test loop: <span id="test_time">0/10000</span>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <hr/>
+        
+        <h2>How to use</h2>
+        <div>
+<pre>
+//create mnist object
+var mnist = Mnist({
+    trainCount: 60000,                     // integer (60000 is max and also default value)
+    testCount: 10000,                      // integer (10000 is max and also default value)
+    trainImageFile: trainImageFileObject,  // file object
+    trainLabelFile: trainLabelFileObject,  // file object
+    testImageFile: testImageFileObject,    // file object
+    testLabelFile: testLabelFileObject,    // file object
+    LoopIncrementCountOfEachTimeout: 10,   // integer (If you want to calc fast, set bigger value. 1 to 60000) 
+});
+
+//start train and test
+mnist.start(
+    onTrainImageRead,          // function(index, label, imageData)
+    onTestImageRead            // function(index, label, imageData)
+);
+</pre>
+            <p>
+                "onTrainImageRead" and "onTestImageRead" is callback function. And these function have 3 parameters. 
+            </p>
+            <ul>
+                <li>"index" is loop index.</li>
+                <li>"label" is teacher value (integer).</li>
+                <li>"imageData" is 28*28 array, and each cell has 0 to 255 value.</li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>
