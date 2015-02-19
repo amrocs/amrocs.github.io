@@ -35,6 +35,12 @@ input[type="text"]{
     font-size: 44px;
 }
 
+#result_container{
+    margin: 10px;
+    float: left;
+    border-collapse: collapse;
+}
+
 /*Group*/
 .group_container{
     margin: 2px;

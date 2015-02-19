@@ -114,6 +114,7 @@ var onTrainImageRead = function(index, label, image){
     var turn = index+1;
     if(turn % 100 == 0){
         printBenchmark("" + turn);
+        $("#result_container").html("Now Training ...");
     }
 };
 
@@ -156,7 +157,7 @@ var onTestImageRead = function(index, label, image){
     
     if(testCount % 100 == 0){
         var str = ("" + (correct / testCount)).substr(0,6);
-        console.log("test:" + str + " (" + testCount + " images tested)");
+        $("#result_container").html("Accuracy:" + str + " (" + testCount + " images tested)");
     }
 };
 
