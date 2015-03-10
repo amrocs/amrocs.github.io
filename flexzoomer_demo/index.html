@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tile Zoom Demo</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="./flexzoomer/flexzoomer.css" rel="stylesheet">
+    <script type="text/javascript" src="./lib/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="./lib/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="./lib/raphael-min.js"></script>
+    <script type="text/javascript" src="./flexzoomer/flexzoomer-0.5.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <style>
+        #zoom_basic{
+            position:relative;
+            height : 300px;
+            width : 600px;
+        }
+        #zoom_basic .flexzoomer-frontground, #zoom_basic .flexzoomer-viewport{
+            border-radius:100px;
+        }
+        #zoom_synchro1{
+            position:relative;
+            height : 200px;
+            width : 300px;
+            float: left;
+        }
+        #zoom_synchro2{
+            margin-left: 20px;
+            position:relative;
+            height : 200px;
+            width : 300px;
+            float: left;
+        }
+        #zoomer_flex_range{
+            margin-left: 20px;
+            position:relative;
+            height : 150px;
+            width : 150px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Flex Zoomer Demo</h1>
+        </div>
+        
+        <div class="row">
+            <h2>Basic</h2>
+            <div id="zoom_basic"></div>
+        </div>
+        
+        <div class="row">
+            <h2>Synchro</h2>
+            <div id="zoom_synchro1"></div>
+            <div id="zoom_synchro2"></div>
+        </div>
+        
+        <div class="row">
+            <h2>Flexible Scroll Range</h2>
+            <input id="range_flex_range" type="range" min="1" max="10"/>
+            <div id="zoomer_flex_range"></div>
+        </div>
+        
+        <!--
+        <div class="row">
+            <h2>Mapping Zoom</h2>
+        </div>
+        -->
+        
+        <hr/>
+        
+        <h2>How to use</h2>
+        <strong>html</strong>
+<pre>
+&lt;div id="zoom_basic"&gt;&lt;/div&gt;
+</pre>
+        <strong>javascript1 (create zoomer object)</strong>
+<pre>
+var sampleBasic = function(){
+    <span class="text-info">//Create Zoomer object</span>
+    var zmBasic = new FlexZoomer({containerId: "zoom_basic"});
+    
+    <span class="text-info">//common range for each zoom level </span>
+    var range = {x: {min: -10, max: 10}, y: {min: -10, max: 10}};
+    
+    <span class="text-info">//Define each zoom Level</span>
+    zmBasic.zoomLevels([
+        {<span class="text-info">//level 0</span>
+            tileSize : {w: 50, h: 50},
+            range : range,
+            drawFunc : <span class="text-danger">draw1</span>,
+        },
+        {<span class="text-info">//level 1</span>
+            tileSize : {w: 100, h: 100},
+            range : range,
+            drawFunc : <span class="text-danger">draw1</span>,
+        },
+        {<span class="text-info">//level 2</span>
+            tileSize : {w: 200, h: 200},
+            range : range,
+            drawFunc : draw1,
+        },
+        ...
+    ]);
+
+    <span class="text-info">//initial level is 0</span>
+    zmBasic.position(0);
+};
+</pre>
+        <strong>javascript2 (define draw function for each tile)</strong>
+<pre>
+var <span class="text-danger">draw1</span> = function(tile){
+    var val = Math.abs(tile.pos.x + tile.pos.y) % 3;
+    
+    var font = Math.floor(tile.size.w / 6) + "px 'Times New Roman'";
+    var fill_style = getColor(tile.pos.x, tile.pos.y);
+    
+    tile.div
+        .css("font", font)
+        .css("text-align", "center")
+        .css("color", "#000000")
+        .css("background-color", fill_style)
+        .css("opacity", 0.9);
+    
+    tile.image = $("<img/>")
+        .attr("src", "images/building.jpg")
+        .css("width", tile.size.w)
+        .css("height", tile.size.h)
+        .appendTo(tile.div);
+};
+</pre>
+        <strong>Tile object</strong>
+        <p>
+            This has following properties.
+        </p>
+        <ul>
+            <li>div -> Html element of tile.</li>
+            <li>draw -> Fire drawFunc.</li>
+            <li>drawFunc -> Function for drawing tile.</li>
+            <li>pos -> Tile index. This has property "x" and "y".</li>
+            <li>remove -> Function for remove tile.</li>
+            <li>size -> Pixel size. This has property "w" and "h".</li>
+        </ul>
+        
+    </div>
+</body>
+</html>
