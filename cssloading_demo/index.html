@@ -30,6 +30,13 @@
       $('#hide_l').on('click', function(){
         $('#demo_l').cssLoading('hide');
       })
+      
+      $('#show_mask').on('click', function(){
+        $('#demo_mask').cssLoading('showMask');
+      }).click();
+      $('#hide_mask').on('click', function(){
+        $('#demo_mask').cssLoading('hideMask');
+      })
     });
   </script>
 </head>
@@ -58,6 +65,12 @@
     <button type="button" class="btn btn-default" id="show_l">Show</button>
     <button type="button" class="btn btn-default" id="hide_l">Hide</button>
     <div id="demo_l" style="height:150px; margin: 1rem; padding: 1rem; border: 1px solid #bbb; border-radius: 1.5rem;">
+    </div>
+    
+    <h3>Without Animation</h3>
+    <button type="button" class="btn btn-default" id="show_mask">Show</button>
+    <button type="button" class="btn btn-default" id="hide_mask">Hide</button>
+    <div id="demo_mask" style="height:50px; margin: 1rem; padding: 1rem; border: 1px solid #bbb; border-radius: 1.5rem;">
     </div>
     
     <h2>How to use</h2>
