@@ -1,0 +1,21 @@
+@charset "UTF-8";
+.sample_pixel_array {
+  width: initial;
+}
+.sample_pixel_array tbody>tr>td {
+  height: 6rem;
+  width: 6rem;
+  line-height: 6rem;
+  padding: 0;
+  text-align: center;
+}
+
+.convert_sign {
+  padding: 3rem;
+}
+
+#converted_result {
+  padding: 3rem 4rem;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+}

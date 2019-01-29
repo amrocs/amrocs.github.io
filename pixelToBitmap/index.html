@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>pixelToBitmap.js demo</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.min.css">
+  <link rel="stylesheet" href="../font/fontawesome-free-5.5.0-web/css/all.min.css">
+  <link rel="stylesheet" href="./pixelToBitmap.css">
+  <script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./pixelToBitmap.js"></script>
+  <script type="text/javascript">
+    $(window).on('load', function(){
+      //----------------------------------------------------------------
+      // draw color bar
+      var pixelArr = [];
+      
+      for (var i = 0; i < 30; i++) {
+        var row = [];
+        if (i < 10) {
+          for (var j = 0; j < 256; j++) {
+            row.push('#' + ('0' + j.toString(16)).substr(-2) + '0000'); // red
+          }
+        } else if (i < 20) {
+          for (var j = 0; j < 256; j++) {
+            row.push('#00' + ('0' + j.toString(16)).substr(-2) + '00'); // green
+          }
+        } else {
+          for (var j = 0; j < 256; j++) {
+            row.push('#0000' + ('0' + j.toString(16)).substr(-2)); // blue
+          }
+        }
+        pixelArr.push(row);
+      }
+      
+      var img = pixelToBitmap(pixelArr);
+      var div = document.getElementById('color_bar')
+      div.appendChild(img);
+      
+      //----------------------------------------------------------------
+      // how to use
+      pixelArr = [
+        ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+        ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+        ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+        ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff'],
+        ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff'],
+        ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff']
+      ];
+      
+      var image = pixelToBitmap(pixelArr);
+      var div = document.getElementById('converted_result');
+      div.appendChild(image);
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1 style="margin: 3rem 0;"><a href="https://github.com/amrocs/colorsToBitmap.js">pixelToBitmap.js</a></h1>
+    <p>
+      High performance converter of pixel array to bitmap image.
+    </p>
+    
+    <div id="color_bar"></div>
+    
+    <h2>Example</h2>
+    <p>
+      6x6 pixel array to Bitmap Image.
+    </p>
+    <table class="table table-bordered sample_pixel_array pull-left">
+      <tbody>
+        <tr><td>#ff0000</td><td>#ff0000</td><td>#ff0000</td><td>#00ff00</td><td>#00ff00</td><td>#00ff00</td></tr>
+        <tr><td>#ff0000</td><td>#ff0000</td><td>#ff0000</td><td>#00ff00</td><td>#00ff00</td><td>#00ff00</td></tr>
+        <tr><td>#ff0000</td><td>#ff0000</td><td>#ff0000</td><td>#00ff00</td><td>#00ff00</td><td>#00ff00</td></tr>
+        <tr><td>#0000ff</td><td>#0000ff</td><td>#0000ff</td><td>#ff00ff</td><td>#ff00ff</td><td>#ff00ff</td></tr>
+        <tr><td>#0000ff</td><td>#0000ff</td><td>#0000ff</td><td>#ff00ff</td><td>#ff00ff</td><td>#ff00ff</td></tr>
+        <tr><td>#0000ff</td><td>#0000ff</td><td>#0000ff</td><td>#ff00ff</td><td>#ff00ff</td><td>#ff00ff</td></tr>
+      </tbody>
+    </table>
+    <div class="convert_sign pull-left">
+      <i class="fas fa-arrow-right"></i>
+      Convert
+      <i class="fas fa-arrow-right"></i>
+    </div>
+    <div  class="pull-left" id="converted_result"></div>
+    
+    <div class="clearfix"></div>
+    
+    <h2>How to Use</h2>
+<pre>
+var colorArr = [
+  ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+  ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+  ['#ff0000', '#ff0000', '#ff0000', '#00ff00', '#00ff00', '#00ff00'],
+  ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff'],
+  ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff'],
+  ['#0000ff', '#0000ff', '#0000ff', '#ff00ff', '#ff00ff', '#ff00ff']
+];
+
+var image = pixelToBitmap(colorArr);
+var div = document.getElementById('converted_result');
+div.appendChild(image);
+</pre>
+</body>
+</html>
