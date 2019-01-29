@@ -6,3 +6,4 @@
 *.out
 mnist.js/
 neuron.js/
+pixelToBitmap/.git
