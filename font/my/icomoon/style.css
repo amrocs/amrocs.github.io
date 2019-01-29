@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'icomoon';
+  src:
+    url('fonts/icomoon.ttf?h226rw') format('truetype'),
+    url('fonts/icomoon.woff?h226rw') format('woff'),
+    url('fonts/icomoon.svg?h226rw#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ecocute:before {
+  content: "\e91f";
+}
+.icon-timeline:before {
+  content: "\e91d";
+}
+.icon-table:before {
+  content: "\e91e";
+}
+.icon-analyze:before {
+  content: "\e919";
+}
+.icon-bar-chart-peak-with-bar:before {
+  content: "\e91a";
+}
+.icon-compress:before {
+  content: "\e91b";
+}
+.icon-expand:before {
+  content: "\e91c";
+}
+.icon-aggregate_chart:before {
+  content: "\e918";
+}
+.icon-user:before {
+  content: "\e916";
+}
+.icon-user2:before {
+  content: "\e917";
+}
+.icon-aggregate_charge:before {
+  content: "\e914";
+}
+.icon-aggregate_table:before {
+  content: "\e915";
+}
+.icon-charge:before {
+  content: "\e913";
+}
+.icon-mapping:before {
+  content: "\e912";
+}
+.icon-calendar-play:before {
+  content: "\e911";
+}
+.icon-topology_rectangle_1:before {
+  content: "\e90d";
+}
+.icon-topology_rectangle_2:before {
+  content: "\e90e";
+}
+.icon-topology_rectangle_3:before {
+  content: "\e90f";
+}
+.icon-topology_rectangle_4:before {
+  content: "\e910";
+}
+.icon-line-chart-peak:before {
+  content: "\e901";
+}
+.icon-line-chart_dashed:before {
+  content: "\e90b";
+}
+.icon-line-chart-fill:before {
+  content: "\e90c";
+}
+.icon-smart_inverter:before {
+  content: "\e90a";
+}
+.icon-topology:before {
+  content: "\e908";
+}
+.icon-topology_rectangle:before {
+  content: "\e909";
+}
+.icon-scatter-plot-sun-moon:before {
+  content: "\e907";
+}
+.icon-bar-chart-peak:before {
+  content: "\e900";
+}
+.icon-bar-chart-stack:before {
+  content: "\e902";
+}
+.icon-peak-grid:before {
+  content: "\e903";
+}
+.icon-scatter-plot:before {
+  content: "\e904";
+}
+.icon-scatter-plot-with-bar:before {
+  content: "\e905";
+}
+.icon-sorted-chart:before {
+  content: "\e906";
+}
